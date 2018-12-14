@@ -1,0 +1,570 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 38.2644
+  longitude: -85.7
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 0
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Kentucky/Louisville
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+# introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Sensors
+# sensor:
+  # Weather prediction
+  # - platform: yr
+
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+cloud:
+
+device_tracker:
+  - platform: ping
+    hosts:
+      router: router
+      files: files
+      stereo: stereo
+      i3: i3
+      hue: hue
+      rostock: rostock
+      printer: printer
+      games: games
+      lights: lights
+      switch: switch
+
+      
+octoprint:
+  - name: Rostock
+    host: rostock
+    api_key: !secret rostock_octoprint_api_key
+  - name: Prusa
+    host: i3
+    api_key: !secret i3_octoprint_api_key
+
+# blink:
+#  username: aaron@verdow.com
+
+mqtt:
+  broker: 10.44.12.10
+
+media_player:
+  - platform: firetv
+    name: "FireTV Living Room"
+    host: firetv-livingroom
+    adbkey: "/home/homeassistant/.android/adbkey"
+
+sensor:
+
+  - platform: glances
+    name: i3
+    host: i3
+    resources:
+      - disk_use_percent
+      - memory_use_percent
+      - processor_load
+      - cpu_temp
+
+  - platform: glances
+    name: rostock
+    host: rostock
+    version: 3
+    resources:
+      - disk_use_percent
+      - memory_use_percent
+      - processor_load
+      - cpu_temp
+
+  - platform: glances
+    name: files
+    host: files
+    resources:
+      - disk_use_percent
+      - memory_use_percent
+      - processor_load
+      - cpu_temp
+
+  - platform: glances
+    name: hass
+    resources:
+      - disk_use_percent
+      - memory_use_percent
+      - processor_load
+
+  - platform: nzbget
+    host: files
+    username: averdow
+    password: torrentz
+    monitored_variables:
+      - download_rate
+      - average_download_rate
+      - remaining_size
+
+  - platform: sonarr
+    api_key: !secret sonarr_api_key
+    host: files
+
+  - name: "Aaron's Room Motion"
+    state_topic: "smartthings/Aaron's Room Motion/motion"
+    platform: mqtt
+    payload_on: "active"
+    payload_off: "inactive"
+
+  - name: "Back Yard Motion"
+    state_topic: "smartthings/Back Yard Motion/motion"
+    platform: mqtt
+    payload_on: "active"
+    payload_off: "inactive"
+
+  - name: "Bathroom Motion"
+    state_topic: "smartthings/Bathroom Motion/motion"
+    platform: mqtt
+    payload_on: "active"
+    payload_off: "inactive"
+
+  - name: "Entrance Motion"
+    state_topic: "smartthings/Entrance Motion/motion"
+    platform: mqtt
+    payload_on: "active"
+    payload_off: "inactive"
+
+  - name: "Front Porch Motion"
+    state_topic: "smartthings/Front Porch Motion/motion"
+    platform: mqtt
+    payload_on: "active"
+    payload_off: "inactive"
+
+  - name: "Hall Back"
+    state_topic: "smartthings/Hall Back/motion"
+    platform: mqtt
+    payload_on: "active"
+    payload_off: "inactive"
+
+  - name: "Hall Front"
+    state_topic: "smartthings/Hall Front/motion"
+    platform: mqtt
+    payload_on: "active"
+    payload_off: "inactive"
+
+  - name: "Kitchen Motion"
+    state_topic: "smartthings/Kitchen Motion/motion"
+    platform: mqtt
+    payload_on: "active"
+    payload_off: "inactive"
+
+  - name: "Laundry Motion"
+    state_topic: "smartthings/Laundry Motion/motion"
+    platform: mqtt
+    payload_on: "active"
+    payload_off: "inactive"
+
+  - name: "Living Room Motion"
+    state_topic: "smartthings/Living Room Motion/motion"
+    platform: mqtt
+    payload_on: "active"
+    payload_off: "inactive"
+
+  - name: "Office Desk"
+    state_topic: "smartthings/Office Desk/motion"
+    platform: mqtt
+    payload_on: "active"
+    payload_off: "inactive"
+
+  - name: "Office Motion"
+    state_topic: "smartthings/Office Motion/motion"
+    platform: mqtt
+    payload_on: "active"
+    payload_off: "inactive"
+
+switch:
+
+  - name: "Aeotec Doorbell"
+    state_topic: "smartthings/Aeotec Doorbell/switch"
+    command_topic: "smartthings/Aeotec Doorbell/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Air Filter"
+    state_topic: "smartthings/Air Filter/switch"
+    command_topic: "smartthings/Air Filter/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Basement Bulb"
+    state_topic: "smartthings/Basement Bulb/switch"
+    command_topic: "smartthings/Basement Bulb/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Basement Lights"
+    state_topic: "smartthings/Basement Lights/switch"
+    command_topic: "smartthings/Basement Lights/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Bed Fan"
+    state_topic: "smartthings/Bed Fan/switch"
+    command_topic: "smartthings/Bed Fan/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Bedroom Shelf"
+    state_topic: "smartthings/Bedroom Shelf/switch"
+    command_topic: "smartthings/Bedroom Shelf/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Bug Zapper"
+    state_topic: "smartthings/Bug Zapper/switch"
+    command_topic: "smartthings/Bug Zapper/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Colors"
+    state_topic: "smartthings/Colors/switch"
+    command_topic: "smartthings/Colors/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Couch"
+    state_topic: "smartthings/Couch/switch"
+    command_topic: "smartthings/Couch/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Daylight"
+    state_topic: "smartthings/Daylight/switch"
+    command_topic: "smartthings/Daylight/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Delta Air Scrubber"
+    state_topic: "smartthings/Delta Air Scrubber/switch"
+    command_topic: "smartthings/Delta Air Scrubber/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Delta Dehumidifier"
+    state_topic: "smartthings/Delta Dehumidifier/switch"
+    command_topic: "smartthings/Delta Dehumidifier/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Delta Printer Power"
+    state_topic: "smartthings/Delta Printer Power/switch"
+    command_topic: "smartthings/Delta Printer Power/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Dog"
+    state_topic: "smartthings/Dog/switch"
+    command_topic: "smartthings/Dog/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Empty"
+    state_topic: "smartthings/Empty/switch"
+    command_topic: "smartthings/Empty/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Full Brightness"
+    state_topic: "smartthings/Full Brightness/switch"
+    command_topic: "smartthings/Full Brightness/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Gaming"
+    state_topic: "smartthings/Gaming/switch"
+    command_topic: "smartthings/Gaming/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Gentle Wake Up"
+    state_topic: "smartthings/Gentle Wake Up/switch"
+    command_topic: "smartthings/Gentle Wake Up/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Hallway"
+    state_topic: "smartthings/Hallway/switch"
+    command_topic: "smartthings/Hallway/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Humidifier"
+    state_topic: "smartthings/Humidifier/switch"
+    command_topic: "smartthings/Humidifier/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Kitchen LEDs"
+    state_topic: "smartthings/Kitchen LEDs/switch"
+    command_topic: "smartthings/Kitchen LEDs/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "LEDs"
+    state_topic: "smartthings/LEDs/switch"
+    command_topic: "smartthings/LEDs/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Monitors"
+    state_topic: "smartthings/Monitors/switch"
+    command_topic: "smartthings/Monitors/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Movie Time"
+    state_topic: "smartthings/Movie Time/switch"
+    command_topic: "smartthings/Movie Time/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Night"
+    state_topic: "smartthings/Night/switch"
+    command_topic: "smartthings/Night/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Office Underflow"
+    state_topic: "smartthings/Office Underflow/switch"
+    command_topic: "smartthings/Office Underflow/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Polar Printer Power"
+    state_topic: "smartthings/Polar Printer Power/switch"
+    command_topic: "smartthings/Polar Printer Power/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Printer Underglow"
+    state_topic: "smartthings/Printer Underglow/switch"
+    command_topic: "smartthings/Printer Underglow/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Prusa Air Scrubber"
+    state_topic: "smartthings/Prusa Air Scrubber/switch"
+    command_topic: "smartthings/Prusa Air Scrubber/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Prusa Lights"
+    state_topic: "smartthings/Prusa Lights/switch"
+    command_topic: "smartthings/Prusa Lights/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Prusa Printer Power"
+    state_topic: "smartthings/Prusa Printer Power/switch"
+    command_topic: "smartthings/Prusa Printer Power/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Rear Gate"
+    state_topic: "smartthings/Rear Gate/switch"
+    command_topic: "smartthings/Rear Gate/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Rostock 2"
+    state_topic: "smartthings/Rostock 2/switch"
+    command_topic: "smartthings/Rostock 2/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Shop Light"
+    state_topic: "smartthings/Shop Light/switch"
+    command_topic: "smartthings/Shop Light/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Sketch Pad"
+    state_topic: "smartthings/Sketch Pad/switch"
+    command_topic: "smartthings/Sketch Pad/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Sleeping"
+    state_topic: "smartthings/Sleeping/switch"
+    command_topic: "smartthings/Sleeping/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Soldering Iron"
+    state_topic: "smartthings/Soldering Iron/switch"
+    command_topic: "smartthings/Soldering Iron/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Table"
+    state_topic: "smartthings/Table/switch"
+    command_topic: "smartthings/Table/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Table Heater"
+    state_topic: "smartthings/Table Heater/switch"
+    command_topic: "smartthings/Table Heater/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "The Wind"
+    state_topic: "smartthings/The Wind/switch"
+    command_topic: "smartthings/The Wind/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Umbrella"
+    state_topic: "smartthings/Umbrella/switch"
+    command_topic: "smartthings/Umbrella/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+  - name: "Warm Default"
+    state_topic: "smartthings/Warm Default/switch"
+    command_topic: "smartthings/Warm Default/switch"
+    platform: mqtt
+    payload_on: "on"
+    payload_off: "off"
+    retain: true
+
+# logger:
+  # default: warning
+  # logs:
+    # homeassistant.components.mqtt: debug
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml

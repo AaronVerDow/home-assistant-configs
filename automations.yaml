@@ -1,0 +1,48 @@
+- id: '1544569666102'
+  alias: Soldering Wind On
+  trigger:
+  - entity_id: switch.soldering_iron
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - alias: ''
+    data:
+      entity_id: switch.the_wind
+    service: switch.turn_on
+- id: '1544569712029'
+  alias: Soldering Wind Off
+  trigger:
+  - entity_id: switch.soldering_iron
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - alias: ''
+    data:
+      entity_id: switch.the_wind
+    service: switch.turn_off
+- id: '1544586668260'
+  alias: Sun Down
+  trigger:
+  - event: sunset
+    platform: sun
+  condition: []
+  action:
+  - alias: ''
+    data:
+      entity_id: switch.daylight
+    service: switch.turn_off
+- id: '1544586747808'
+  alias: Sun Up
+  trigger:
+  - event: sunrise
+    platform: sun
+  condition: []
+  action:
+  - alias: ''
+    data:
+      entity_id: switch.daylight
+    service: switch.turn_on
