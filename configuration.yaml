@@ -102,6 +102,14 @@ media_player:
 
 sensor:
 
+  - platform: mqtt
+    name: "Prusa PM2.5"
+    state_topic: "air/prusa/pm25"
+
+  - platform: mqtt
+    name: "Prusa PM10"
+    state_topic: "air/prusa/pm10"
+
   - platform: glances
     name: i3
     host: i3
