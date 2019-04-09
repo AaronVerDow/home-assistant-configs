@@ -73,26 +73,26 @@ device_tracker:
       stereo: stereo
       i3: i3
       hue: hue
-      rostock: rostock
+      duet: duet 
       printer: printer
       games: games
       lights: lights
       switch: switch
 
       
-octoprint:
-  - name: Rostock
-    host: rostock
-    api_key: !secret rostock_octoprint_api_key
-  - name: Prusa
-    host: i3
-    api_key: !secret i3_octoprint_api_key
+# octoprint:
+  # - name: Rostock
+    # host: rostock
+    # api_key: !secret rostock_octoprint_api_key
+  # - name: Prusa
+    # host: i3
+    # api_key: !secret i3_octoprint_api_key
 
 # blink:
 #  username: aaron@verdow.com
 
 mqtt:
-  broker: 10.44.12.10
+  broker: 127.0.0.1
 
 media_player:
   - platform: firetv
@@ -102,27 +102,9 @@ media_player:
 
 sensor:
 
-  - platform: mqtt
-    name: "Prusa PM2.5"
-    state_topic: "air/prusa/pm25"
-
-  - platform: mqtt
-    name: "Prusa PM10"
-    state_topic: "air/prusa/pm10"
-
   - platform: glances
     name: i3
     host: i3
-    resources:
-      - disk_use_percent
-      - memory_use_percent
-      - processor_load
-      - cpu_temp
-
-  - platform: glances
-    name: rostock
-    host: rostock
-    version: 3
     resources:
       - disk_use_percent
       - memory_use_percent
@@ -154,9 +136,9 @@ sensor:
       - average_download_rate
       - remaining_size
 
-  - platform: sonarr
-    api_key: !secret sonarr_api_key
-    host: files
+  #- platform: sonarr
+    #api_key: !secret sonarr_api_key
+    #host: files
 
   - name: "Aaron's Room Motion"
     state_topic: "smartthings/Aaron's Room Motion/motion"
