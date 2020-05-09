@@ -1,0 +1,35 @@
+- name: Cool
+  entities:
+    light.default_light:
+      state: on
+      color_temp: 220
+- name: Warm
+  entities:
+    light.default_light:
+      state: on
+      color_temp: 444
+- name: White
+  entities:
+    light.default_light:
+      state: on
+      color_temp: 317
+- name: Full
+  entities:
+    light.default_light:
+      state: on
+      brightness: 254
+- name: Bright
+  entities:
+    light.default_light:
+      state: on
+      brightness: 185
+- name: Dim
+  entities:
+    light.default_light:
+      state: on
+      brightness: 62
+- name: Dark
+  entities:
+    light.default_light:
+      state: on
+      brightness: 1

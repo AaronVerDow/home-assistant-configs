@@ -1,0 +1,1392 @@
+- id: '1582940122860'
+  alias: Boiler Motion On
+  description: ''
+  trigger:
+  - device_id: 7173f5b43a5d4c46a7e95c2cfbcde832
+    domain: binary_sensor
+    entity_id: binary_sensor.boiler_motion
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: 7173f5b43a5d4c46a7e95c2cfbcde832
+    domain: binary_sensor
+    entity_id: binary_sensor.boiler_motion
+    type: is_on
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.boiler_room
+    service: light.turn_on
+- id: '1582940160170'
+  alias: Boiler Motion Off
+  description: ''
+  trigger:
+  - device_id: 7173f5b43a5d4c46a7e95c2cfbcde832
+    domain: binary_sensor
+    entity_id: binary_sensor.boiler_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: 7173f5b43a5d4c46a7e95c2cfbcde832
+    domain: binary_sensor
+    entity_id: binary_sensor.boiler_motion
+    type: is_off
+  action:
+  - entity_id: light.boiler_room
+    service: light.turn_off
+- id: '1582941371453'
+  alias: Utility Sink Motion On
+  description: ''
+  trigger:
+  - device_id: 22740d980b594cc39e128e260e184107
+    domain: binary_sensor
+    entity_id: binary_sensor.utility_sink_motion
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: 22740d980b594cc39e128e260e184107
+    domain: binary_sensor
+    entity_id: binary_sensor.utility_sink_motion
+    type: is_on
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.laundry
+    service: light.turn_on
+- id: '1582941417806'
+  alias: Utility Sink Motion Off
+  description: ''
+  trigger:
+  - device_id: 22740d980b594cc39e128e260e184107
+    domain: binary_sensor
+    entity_id: binary_sensor.utility_sink_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: 22740d980b594cc39e128e260e184107
+    domain: binary_sensor
+    entity_id: binary_sensor.utility_sink_motion
+    type: is_off
+  action:
+  - data: {}
+    entity_id: light.laundry
+    service: light.turn_off
+- id: '1582942197070'
+  alias: Tiny Bath Motion On
+  description: ''
+  trigger:
+  - device_id: 189a3775a93f47e6b6401a929b50b9ce
+    domain: binary_sensor
+    entity_id: binary_sensor.tiny_bath_motion
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: 189a3775a93f47e6b6401a929b50b9ce
+    domain: binary_sensor
+    entity_id: binary_sensor.tiny_bath_motion
+    type: is_on
+  action:
+  - data: {}
+    entity_id: light.tiny_bath
+    service: light.turn_on
+- id: '1582942227553'
+  alias: Tiny Bath Motion Off
+  description: ''
+  trigger:
+  - device_id: 189a3775a93f47e6b6401a929b50b9ce
+    domain: binary_sensor
+    entity_id: binary_sensor.tiny_bath_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: 189a3775a93f47e6b6401a929b50b9ce
+    domain: binary_sensor
+    entity_id: binary_sensor.tiny_bath_motion
+    type: is_off
+  action:
+  - data: {}
+    entity_id: light.tiny_bath
+    service: light.turn_off
+- id: '1582942666778'
+  alias: Stair Landing On
+  description: ''
+  trigger:
+  - device_id: 7173f5b43a5d4c46a7e95c2cfbcde832
+    domain: binary_sensor
+    entity_id: binary_sensor.boiler_motion
+    platform: device
+    type: turned_on
+  - device_id: 22740d980b594cc39e128e260e184107
+    domain: binary_sensor
+    entity_id: binary_sensor.utility_sink_motion
+    platform: device
+    type: turned_on
+  - device_id: 7d96568af50540b0b6c75f01713aa2c1
+    domain: binary_sensor
+    entity_id: binary_sensor.upper_stairs_motion
+    platform: device
+    type: turned_on
+  condition:
+  - condition: or
+    conditions:
+    - condition: device
+      device_id: 7d96568af50540b0b6c75f01713aa2c1
+      domain: binary_sensor
+      entity_id: binary_sensor.upper_stairs_motion
+      type: is_on
+    - condition: device
+      device_id: 22740d980b594cc39e128e260e184107
+      domain: binary_sensor
+      entity_id: binary_sensor.utility_sink_motion
+      type: is_on
+    - condition: device
+      device_id: 7173f5b43a5d4c46a7e95c2cfbcde832
+      domain: binary_sensor
+      entity_id: binary_sensor.boiler_motion
+      type: is_on
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.stairs
+    service: light.turn_on
+- id: '1582942742922'
+  alias: Stairs Landing Off
+  description: ''
+  trigger:
+  - device_id: 22740d980b594cc39e128e260e184107
+    domain: binary_sensor
+    entity_id: binary_sensor.utility_sink_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  - device_id: 7173f5b43a5d4c46a7e95c2cfbcde832
+    domain: binary_sensor
+    entity_id: binary_sensor.boiler_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  - device_id: 7d96568af50540b0b6c75f01713aa2c1
+    domain: binary_sensor
+    entity_id: binary_sensor.upper_stairs_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: 7173f5b43a5d4c46a7e95c2cfbcde832
+    domain: binary_sensor
+    entity_id: binary_sensor.boiler_motion
+    type: is_off
+  - condition: device
+    device_id: 22740d980b594cc39e128e260e184107
+    domain: binary_sensor
+    entity_id: binary_sensor.utility_sink_motion
+    type: is_off
+  - condition: device
+    device_id: 7d96568af50540b0b6c75f01713aa2c1
+    domain: binary_sensor
+    entity_id: binary_sensor.upper_stairs_motion
+    type: is_off
+  action:
+  - data: {}
+    entity_id: light.stairs
+    service: light.turn_off
+- id: '1582947157635'
+  alias: Carpet Motion On
+  description: ''
+  trigger:
+  - device_id: 81ee90b7a0764639b3bfe39763cdb963
+    domain: binary_sensor
+    entity_id: binary_sensor.carpet_motion
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: 81ee90b7a0764639b3bfe39763cdb963
+    domain: binary_sensor
+    entity_id: binary_sensor.carpet_motion
+    type: is_on
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.carpet
+    service: light.turn_on
+  - device_id: acd9c3f5e748483c818961f45d8137cf
+    domain: switch
+    entity_id: switch.carpet_air_purifier
+    type: turn_off
+  - device_id: dcf2be79fb2744549e0ddfc7dc115e14
+    domain: switch
+    entity_id: switch.carpet_pool_light
+    type: turn_on
+- id: '1582949558841'
+  alias: Carpet Motion Off
+  description: ''
+  trigger:
+  - device_id: 81ee90b7a0764639b3bfe39763cdb963
+    domain: binary_sensor
+    entity_id: binary_sensor.carpet_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: 81ee90b7a0764639b3bfe39763cdb963
+    domain: binary_sensor
+    entity_id: binary_sensor.carpet_motion
+    type: is_off
+  action:
+  - entity_id: light.carpet
+    service: light.turn_off
+  - device_id: acd9c3f5e748483c818961f45d8137cf
+    domain: switch
+    entity_id: switch.carpet_air_purifier
+    type: turn_on
+  - device_id: dcf2be79fb2744549e0ddfc7dc115e14
+    domain: switch
+    entity_id: switch.carpet_pool_light
+    type: turn_off
+  - device_id: ec221e190b2e476bba873a531f1fae6d
+    domain: switch
+    entity_id: switch.vision_security_plug_in_switch_switch
+    type: turn_off
+- id: '1582952090567'
+  alias: Printer Dungeon Motion On
+  description: ''
+  trigger:
+  - device_id: af62ba62f57e4d0baf662316e83fea0e
+    domain: binary_sensor
+    entity_id: binary_sensor.printer_dungeon_motion
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: af62ba62f57e4d0baf662316e83fea0e
+    domain: binary_sensor
+    entity_id: binary_sensor.printer_dungeon_motion
+    type: is_on
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.printer_dungeon
+    service: light.turn_on
+- id: '1582952134968'
+  alias: Printer Dungeon Motion Off
+  description: ''
+  trigger:
+  - device_id: af62ba62f57e4d0baf662316e83fea0e
+    domain: binary_sensor
+    entity_id: binary_sensor.printer_dungeon_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: af62ba62f57e4d0baf662316e83fea0e
+    domain: binary_sensor
+    entity_id: binary_sensor.printer_dungeon_motion
+    type: is_off
+  action:
+  - data: {}
+    entity_id: light.printer_dungeon
+    service: light.turn_off
+- id: '1583191112517'
+  alias: Paper Motion On
+  description: ''
+  trigger:
+  - device_id: 01ede7e2cf8f4983bcef4b6c7b4f03d4
+    domain: binary_sensor
+    entity_id: binary_sensor.paper_motion
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: 01ede7e2cf8f4983bcef4b6c7b4f03d4
+    domain: binary_sensor
+    entity_id: binary_sensor.paper_motion
+    type: is_on
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.paper
+    service: light.turn_on
+- id: '1583191164728'
+  alias: Paper Motion Off
+  description: ''
+  trigger:
+  - device_id: 01ede7e2cf8f4983bcef4b6c7b4f03d4
+    domain: binary_sensor
+    entity_id: binary_sensor.paper_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: 01ede7e2cf8f4983bcef4b6c7b4f03d4
+    domain: binary_sensor
+    entity_id: binary_sensor.paper_motion
+    type: is_off
+  action:
+  - data: {}
+    entity_id: light.paper
+    service: light.turn_off
+- id: '1583191488755'
+  alias: Dining Table Motion On
+  description: ''
+  trigger:
+  - device_id: c778f47158af42b2909e278f4778b427
+    domain: binary_sensor
+    entity_id: binary_sensor.dining_table_motion
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: c778f47158af42b2909e278f4778b427
+    domain: binary_sensor
+    entity_id: binary_sensor.dining_table_motion
+    type: is_on
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.dining_table
+    service: light.turn_on
+- id: '1583191545330'
+  alias: Dining Table Motion Off
+  description: ''
+  trigger:
+  - device_id: c778f47158af42b2909e278f4778b427
+    domain: binary_sensor
+    entity_id: binary_sensor.dining_table_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: c778f47158af42b2909e278f4778b427
+    domain: binary_sensor
+    entity_id: binary_sensor.dining_table_motion
+    type: is_off
+  action:
+  - device_id: 56f8bdb62d2842a792ff22769321b167
+    domain: light
+    entity_id: light.dining_table
+    type: turn_off
+- id: '1583192916254'
+  alias: Bathroom Motion On
+  description: ''
+  trigger:
+  - device_id: 8f4bb5173bef48a68188731a55ae6cde
+    domain: binary_sensor
+    entity_id: binary_sensor.bathroom_motion
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: 8f4bb5173bef48a68188731a55ae6cde
+    domain: binary_sensor
+    entity_id: binary_sensor.bathroom_motion
+    type: is_on
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.bathroom
+    service: light.turn_on
+  - device_id: b2bb47def3874d8abb6c77d7696234db
+    domain: light
+    entity_id: light.intermatic_ha_03wd_lamp_module_level_2
+    type: turn_on
+- id: '1583192991854'
+  alias: Bathroom Motion Off
+  description: ''
+  trigger:
+  - device_id: 8f4bb5173bef48a68188731a55ae6cde
+    domain: binary_sensor
+    entity_id: binary_sensor.bathroom_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: 24b72ba96dc44f1081ea39dff4857684
+    domain: binary_sensor
+    entity_id: binary_sensor.ecolink_door_window_sensor_sensor_2
+    type: is_on
+  - condition: device
+    device_id: 8f4bb5173bef48a68188731a55ae6cde
+    domain: binary_sensor
+    entity_id: binary_sensor.bathroom_motion
+    type: is_off
+  action:
+  - data: {}
+    entity_id: light.bathroom
+    service: light.turn_off
+  - device_id: b2bb47def3874d8abb6c77d7696234db
+    domain: light
+    entity_id: light.intermatic_ha_03wd_lamp_module_level_2
+    type: turn_off
+- id: '1583193305796'
+  alias: Closet Motion On
+  description: ''
+  trigger:
+  - device_id: 39b8bb5378fd45f0bd2b04570c5e1c59
+    domain: binary_sensor
+    entity_id: binary_sensor.closet_motion
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: 39b8bb5378fd45f0bd2b04570c5e1c59
+    domain: binary_sensor
+    entity_id: binary_sensor.closet_motion
+    type: is_on
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.closet
+    service: light.turn_on
+- id: '1583193367327'
+  alias: Closet Motion Off
+  description: ''
+  trigger:
+  - device_id: 39b8bb5378fd45f0bd2b04570c5e1c59
+    domain: binary_sensor
+    entity_id: binary_sensor.closet_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: 39b8bb5378fd45f0bd2b04570c5e1c59
+    domain: binary_sensor
+    entity_id: binary_sensor.closet_motion
+    type: is_off
+  action:
+  - data: {}
+    entity_id: light.closet
+    service: light.turn_off
+- id: '1583195001793'
+  alias: Garage Motion On
+  description: ''
+  trigger:
+  - device_id: d2e7611b008f4f21bf2e892c50fc7480
+    domain: binary_sensor
+    entity_id: binary_sensor.garage_motion
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: d2e7611b008f4f21bf2e892c50fc7480
+    domain: binary_sensor
+    entity_id: binary_sensor.garage_motion
+    type: is_on
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.garage
+    service: light.turn_on
+  - device_id: 99bd59c331e243e7a32af93986c1f818
+    domain: switch
+    entity_id: switch.jasco_products_45603_plugin_appliance_module_switch
+    type: turn_on
+  - data: {}
+    service: script.garage_snapshot
+  - device_id: 7856d7dfc9674ae4b380eb719ad62b4e
+    domain: switch
+    entity_id: switch.maslow_monitor_switch
+    type: turn_on
+- id: '1583195004740'
+  alias: Garage Motion Off
+  description: ''
+  trigger:
+  - device_id: d2e7611b008f4f21bf2e892c50fc7480
+    domain: binary_sensor
+    entity_id: binary_sensor.garage_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: d2e7611b008f4f21bf2e892c50fc7480
+    domain: binary_sensor
+    entity_id: binary_sensor.garage_motion
+    type: is_off
+  action:
+  - data: {}
+    entity_id: light.garage
+    service: light.turn_off
+  - device_id: 99bd59c331e243e7a32af93986c1f818
+    domain: switch
+    entity_id: switch.jasco_products_45603_plugin_appliance_module_switch
+    type: turn_off
+  - data: {}
+    service: script.garage_snapshot
+- id: '1583210499283'
+  alias: Bedroom Motion On
+  description: ''
+  trigger:
+  - device_id: 608822c928ae489797b3201b0bee5251
+    domain: binary_sensor
+    entity_id: binary_sensor.bedroom_motion
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: 608822c928ae489797b3201b0bee5251
+    domain: binary_sensor
+    entity_id: binary_sensor.bedroom_motion
+    type: is_on
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.bedroom
+    service: light.turn_on
+- id: '1583211387702'
+  alias: Bedroom Motion Off
+  description: ''
+  trigger:
+  - device_id: 608822c928ae489797b3201b0bee5251
+    domain: binary_sensor
+    entity_id: binary_sensor.bedroom_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: 608822c928ae489797b3201b0bee5251
+    domain: binary_sensor
+    entity_id: binary_sensor.bedroom_motion
+    type: is_off
+  action:
+  - data: {}
+    entity_id: light.bedroom
+    service: light.turn_off
+- id: '1583211971074'
+  alias: Hallway Motion On
+  description: ''
+  trigger:
+  - device_id: 8f4bb5173bef48a68188731a55ae6cde
+    domain: binary_sensor
+    entity_id: binary_sensor.bathroom_motion
+    platform: device
+    type: turned_on
+  - device_id: 608822c928ae489797b3201b0bee5251
+    domain: binary_sensor
+    entity_id: binary_sensor.bedroom_motion
+    platform: device
+    type: turned_on
+  - device_id: 39b8bb5378fd45f0bd2b04570c5e1c59
+    domain: binary_sensor
+    entity_id: binary_sensor.closet_motion
+    platform: device
+    type: turned_on
+  condition:
+  - condition: or
+    conditions:
+    - condition: device
+      device_id: 39b8bb5378fd45f0bd2b04570c5e1c59
+      domain: binary_sensor
+      entity_id: binary_sensor.closet_motion
+      type: is_on
+    - condition: device
+      device_id: 608822c928ae489797b3201b0bee5251
+      domain: binary_sensor
+      entity_id: binary_sensor.bedroom_motion
+      type: is_on
+    - condition: device
+      device_id: 8f4bb5173bef48a68188731a55ae6cde
+      domain: binary_sensor
+      entity_id: binary_sensor.bathroom_motion
+      type: is_on
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.hallway
+    service: light.turn_on
+- id: '1583212238474'
+  alias: Hallway Motion Off
+  description: ''
+  trigger:
+  - device_id: 8f4bb5173bef48a68188731a55ae6cde
+    domain: binary_sensor
+    entity_id: binary_sensor.bathroom_motion
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+    platform: device
+    type: turned_off
+  - device_id: 608822c928ae489797b3201b0bee5251
+    domain: binary_sensor
+    entity_id: binary_sensor.bedroom_motion
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+    platform: device
+    type: turned_off
+  - device_id: 39b8bb5378fd45f0bd2b04570c5e1c59
+    domain: binary_sensor
+    entity_id: binary_sensor.closet_motion
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: 608822c928ae489797b3201b0bee5251
+    domain: binary_sensor
+    entity_id: binary_sensor.bedroom_motion
+    type: is_off
+  - condition: device
+    device_id: 8f4bb5173bef48a68188731a55ae6cde
+    domain: binary_sensor
+    entity_id: binary_sensor.bathroom_motion
+    type: is_off
+  - condition: device
+    device_id: 39b8bb5378fd45f0bd2b04570c5e1c59
+    domain: binary_sensor
+    entity_id: binary_sensor.closet_motion
+    type: is_off
+  action:
+  - data: {}
+    entity_id: light.hallway
+    service: light.turn_off
+- id: '1583772392769'
+  alias: Printer Fire Detected
+  description: ''
+  trigger:
+  - entity_id: sensor.printer_smoke_alarm_level
+    platform: state
+    to: '255'
+  - entity_id: sensor.printer_smoke_alarm_type
+    platform: state
+    to: '1'
+  condition:
+  - condition: state
+    entity_id: sensor.printer_smoke_alarm_level
+    state: '255'
+  - condition: state
+    entity_id: sensor.printer_smoke_alarm_type
+    state: '1'
+  action:
+  - data: {}
+    entity_id: input_boolean.printer_estop
+    service: input_boolean.turn_on
+- id: '1583772514831'
+  alias: Printer E-Stop On
+  description: ''
+  trigger:
+  - entity_id: input_boolean.printer_estop
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - device_id: 36ca74164c9349c1af0fbfe05b521fd2
+    domain: switch
+    entity_id: switch.aeon_labs_dsc11_smart_strip_switch_5
+    type: turn_off
+  - scene: scene.full
+  - scene: scene.cool
+  - data: {}
+    service: script.force_on
+- id: '1583964172283'
+  alias: Living Room Motion On
+  description: ''
+  trigger:
+  - device_id: 14717f0a413a4dea8ca6acbe9d915d11
+    domain: binary_sensor
+    entity_id: binary_sensor.living_room_motion
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: 14717f0a413a4dea8ca6acbe9d915d11
+    domain: binary_sensor
+    entity_id: binary_sensor.living_room_motion
+    type: is_on
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.aaron_desk
+    service: light.turn_on
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.susan_below_desk
+    service: light.turn_on
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.living_room
+    service: light.turn_on
+  - data: {}
+    entity_id: light.susan_monitor_left
+    service: light.turn_off
+  - data: {}
+    entity_id: light.susan_monitor_right
+    service: light.turn_off
+- id: '1583964234118'
+  alias: Living Room Motion Off
+  description: ''
+  trigger:
+  - device_id: 14717f0a413a4dea8ca6acbe9d915d11
+    domain: binary_sensor
+    entity_id: binary_sensor.living_room_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: 14717f0a413a4dea8ca6acbe9d915d11
+    domain: binary_sensor
+    entity_id: binary_sensor.living_room_motion
+    type: is_off
+  action:
+  - data: {}
+    entity_id: light.aaron_desk
+    service: light.turn_off
+  - data: {}
+    entity_id: light.susan_desk
+    service: light.turn_off
+  - data: {}
+    entity_id: light.living_room
+    service: light.turn_off
+- id: '1583965847187'
+  alias: Kitchen Motion On
+  description: ''
+  trigger:
+  - device_id: 9c362e2f19114b429dad412deb39175d
+    domain: binary_sensor
+    entity_id: binary_sensor.kitchen_motion
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: 9c362e2f19114b429dad412deb39175d
+    domain: binary_sensor
+    entity_id: binary_sensor.kitchen_motion
+    type: is_on
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.kitchen
+    service: light.turn_on
+  - device_id: a79a0c1812574818b618ac047ff6e801
+    domain: switch
+    entity_id: switch.kitchen_leds
+    type: turn_on
+- id: '1583966016450'
+  alias: Kitchen Motion Off
+  description: ''
+  trigger:
+  - device_id: 9c362e2f19114b429dad412deb39175d
+    domain: binary_sensor
+    entity_id: binary_sensor.kitchen_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: 9c362e2f19114b429dad412deb39175d
+    domain: binary_sensor
+    entity_id: binary_sensor.kitchen_motion
+    type: is_off
+  action:
+  - data: {}
+    entity_id: light.kitchen
+    service: light.turn_off
+  - device_id: a79a0c1812574818b618ac047ff6e801
+    domain: switch
+    entity_id: switch.kitchen_leds
+    type: turn_off
+  - device_id: 664e71c773a44ee1b9070ca19640e306
+    domain: switch
+    entity_id: switch.pantry_leds
+    type: turn_off
+- id: '1585417009988'
+  alias: Pantry Door Open
+  description: ''
+  trigger:
+  - device_id: f571265846d74896a776b3a270bec381
+    domain: binary_sensor
+    entity_id: binary_sensor.ecolink_door_window_sensor_sensor
+    platform: device
+    type: turned_on
+  condition: []
+  action:
+  - device_id: 664e71c773a44ee1b9070ca19640e306
+    domain: switch
+    entity_id: switch.pantry_leds
+    type: turn_on
+- id: '1585417055969'
+  alias: Pantry Door Off
+  description: ''
+  trigger:
+  - device_id: f571265846d74896a776b3a270bec381
+    domain: binary_sensor
+    entity_id: binary_sensor.ecolink_door_window_sensor_sensor
+    platform: device
+    type: turned_off
+  condition: []
+  action:
+  - device_id: 664e71c773a44ee1b9070ca19640e306
+    domain: switch
+    entity_id: switch.aeon_labs_dsc06106_smart_energy_switch_switch_10
+    type: turn_off
+- id: '1585435196732'
+  alias: Bathroom Door Opened
+  description: ''
+  trigger:
+  - device_id: 24b72ba96dc44f1081ea39dff4857684
+    domain: binary_sensor
+    entity_id: binary_sensor.ecolink_door_window_sensor_sensor_2
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: 8f4bb5173bef48a68188731a55ae6cde
+    domain: binary_sensor
+    entity_id: binary_sensor.bathroom_motion
+    type: is_off
+  action:
+  - data: {}
+    entity_id: light.bathroom
+    service: light.turn_off
+  - device_id: b2bb47def3874d8abb6c77d7696234db
+    domain: light
+    entity_id: light.intermatic_ha_03wd_lamp_module_level_2
+    type: turn_off
+- id: '1585439980382'
+  alias: Kitchen Pantry Motion On
+  description: ''
+  trigger:
+  - device_id: 9c362e2f19114b429dad412deb39175d
+    domain: binary_sensor
+    entity_id: binary_sensor.kitchen_motion
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: f571265846d74896a776b3a270bec381
+    domain: binary_sensor
+    entity_id: binary_sensor.ecolink_door_window_sensor_sensor
+    type: is_on
+  action:
+  - device_id: 664e71c773a44ee1b9070ca19640e306
+    domain: switch
+    entity_id: switch.pantry_leds
+    type: turn_on
+- id: '1585543262399'
+  alias: 8 am
+  description: ''
+  trigger:
+  - at: '8:00'
+    platform: time
+  condition: []
+  action:
+  - scene: scene.cool
+  - scene: scene.bright
+- id: '1585543315900'
+  alias: 4 pm
+  description: ''
+  trigger:
+  - at: '16:00'
+    platform: time
+  condition: []
+  action:
+  - scene: scene.white
+- id: '1585543417005'
+  alias: 7 pm scene
+  description: ''
+  trigger:
+  - at: '19:00'
+    platform: time
+  condition: []
+  action:
+  - scene: scene.warm
+- id: '1585543463855'
+  alias: 9 pm
+  description: ''
+  trigger:
+  - at: '21:00'
+    platform: time
+  condition: []
+  action:
+  - scene: scene.dim
+- id: '1585543551462'
+  alias: 11 pm
+  description: ''
+  trigger:
+  - at: '23:00'
+    platform: time
+  condition: []
+  action:
+  - scene: scene.dark
+- id: '1585608708472'
+  alias: UV Light Off
+  description: ''
+  trigger:
+  - device_id: 74462fb0fc4748d198c798ca53d9de0f
+    domain: binary_sensor
+    entity_id: binary_sensor.ecolink_door_window_sensor_sensor_3
+    platform: device
+    type: turned_on
+  condition: []
+  action:
+  - device_id: b6ca9b0b289e428ca9305b2235955f9c
+    domain: switch
+    entity_id: switch.jasco_products_45603_plugin_appliance_module_switch_2
+    type: turn_off
+- id: '1585631552093'
+  alias: Auto Snapshot
+  description: ''
+  trigger:
+  - hours: /1
+    platform: time_pattern
+  condition: []
+  action:
+  - data: {}
+    service: script.all_snapshot
+- id: '1585929618477'
+  alias: Garage Maslow Shutdown Warning
+  description: ''
+  trigger:
+  - device_id: d2e7611b008f4f21bf2e892c50fc7480
+    domain: binary_sensor
+    entity_id: binary_sensor.garage_motion
+    for:
+      hours: 0
+      minutes: 20
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition: []
+  action:
+  - device_id: 7856d7dfc9674ae4b380eb719ad62b4e
+    domain: switch
+    entity_id: switch.maslow_monitor_switch
+    type: turn_off
+- id: '1585929719991'
+  alias: Garage Maslow Off
+  description: ''
+  trigger:
+  - device_id: d2e7611b008f4f21bf2e892c50fc7480
+    domain: binary_sensor
+    entity_id: binary_sensor.garage_motion
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition: []
+  action:
+  - device_id: fac1415b7ab24860b51b27043775a66f
+    domain: switch
+    entity_id: switch.garage_heater
+    type: turn_off
+  - device_id: 86efe8da01ba42f6aff0b25691f5d36a
+    domain: switch
+    entity_id: switch.garage_ext
+    type: turn_off
+  - device_id: ecb2988a5ae0464184e7cdc8c0701432
+    domain: switch
+    entity_id: switch.maslow
+    type: turn_off
+  - device_id: 91e18dfd9be14ad5b3bf596bb6e1d178
+    domain: switch
+    entity_id: switch.maslow_router
+    type: turn_off
+- id: '1587157923681'
+  alias: Override Reset
+  description: ''
+  trigger:
+  - entity_id: automation.bathroom_motion_off
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.bathroom_motion_on
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.bedroom_motion_off
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.bedroom_motion_on
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.boiler_motion_off
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.boiler_motion_on
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.carpet_motion_off
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.carpet_motion_on
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.closet_motion_off
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.closet_motion_on
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.dining_table_motion_off
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.dining_table_motion_on
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.garage_motion_off
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.garage_motion_on
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.hallway_motion_off
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.hallway_motion_on
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.kitchen_motion_off
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.kitchen_motion_on
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.living_room_motion_off
+    for: 08:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.living_room_motion_on
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.paper_motion_off
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.paper_motion_on
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.printer_dungeon_motion_off
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.printer_dungeon_motion_on
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.tiny_bath_motion_off
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.tiny_bath_motion_on
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.utility_sink_motion_off
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: automation.utility_sink_motion_on
+    for: 03:00:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data_template:
+      entity_id: '{{ trigger.entity_id }}'
+    service: automation.turn_on
+  - data:
+      skip_condition: false
+    data_template:
+      entity_id: '{{ trigger.entity_id }}'
+    service: automation.trigger
+- id: '1588219740046'
+  alias: Light On Too Long
+  description: ''
+  trigger:
+  - entity_id: light.aaron_desk
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.bathroom
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.bedroom
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.boiler_room
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.carpet
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.closet
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.default_light
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.dining_table
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.garage
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.hallway
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.kitchen
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.laundry
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.living_room
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.paper
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.printer_dungeon
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.stairs
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.susan_desk
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: light.tiny_bath
+    for: '12:00:00'
+    from: 'off'
+    platform: state
+    to: 'on'
+  action:
+  - data_template:
+      entity_id: '{{ trigger.entity_id }}'
+    service: light.turn_off

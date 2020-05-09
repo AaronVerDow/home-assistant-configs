@@ -1,0 +1,333 @@
+update_lights:
+  alias: Update Lights
+  sequence:
+  - data:
+      skip_condition: false
+    entity_id: automation.bathroom_motion_on
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.bedroom_motion_on
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.boiler_motion_on
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.carpet_motion_on
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.closet_motion_on
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.dining_table_motion_on
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.garage_motion_on
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.hallway_motion_on
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.kitchen_motion_on
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.living_room_motion_on
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.paper_motion_on
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.printer_dungeon_motion_on
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.stair_landing_on
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.tiny_bath_motion_on
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.utility_sink_motion_on
+    service: automation.trigger
+force_off:
+  alias: Force Off
+  sequence:
+  - data: {}
+    entity_id: automation.bathroom_motion_off
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.bedroom_motion_off
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.boiler_motion_off
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.carpet_motion_off
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.closet_motion_off
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.dining_table_motion_off
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.garage_motion_off
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.hallway_motion_off
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.kitchen_motion_off
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.living_room_motion_off
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.paper_motion_off
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.printer_dungeon_motion_off
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.stair_landing_off
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.tiny_bath_motion_off
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.utility_sink_motion_off
+    service: automation.trigger
+soft_off:
+  alias: Soft Off
+  sequence:
+  - data:
+      skip_condition: false
+    entity_id: automation.bathroom_motion_off
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.bedroom_motion_off
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.boiler_motion_off
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.carpet_motion_off
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.closet_motion_off
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.dining_table_motion_off
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.garage_motion_off
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.hallway_motion_off
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.kitchen_motion_off
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.living_room_motion_off
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.paper_motion_off
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.printer_dungeon_motion_off
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.stair_landing_off
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.tiny_bath_motion_off
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.utility_sink_motion_off
+    service: automation.trigger
+force_on:
+  alias: Force On
+  sequence:
+  - data: {}
+    entity_id: automation.bathroom_motion_on
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.bedroom_motion_on
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.boiler_motion_on
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.carpet_motion_on
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.closet_motion_on
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.dining_table_motion_on
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.garage_motion_on
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.hallway_motion_on
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.kitchen_motion_on
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.living_room_motion_on
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.paper_motion_on
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.printer_dungeon_motion_on
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.stair_landing_on
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.tiny_bath_motion_on
+    service: automation.trigger
+  - data: {}
+    entity_id: automation.utility_sink_motion_on
+    service: automation.trigger
+'1585544229627':
+  alias: Cool Now
+  sequence:
+  - scene: scene.cool
+  - data: {}
+    service: script.update_lights
+'1585544396289':
+  alias: Warm Now
+  sequence:
+  - scene: scene.warm
+  - data: {}
+    service: script.update_lights
+'1585544434367':
+  alias: Full Brightness Now
+  sequence:
+  - scene: scene.full
+  - data: {}
+    service: script.update_lights
+'1585544480516':
+  alias: Dark Now
+  sequence:
+  - scene: scene.dark
+  - data: {}
+    service: script.update_lights
+'1585544510445':
+  alias: Dim Now
+  sequence:
+  - scene: scene.dim
+  - data: {}
+    service: script.update_lights
+'1585544542888':
+  alias: Bright Now
+  sequence:
+  - scene: scene.bright
+  - data: {}
+    service: script.update_lights
+'1585544577616':
+  alias: White Now
+  sequence:
+  - scene: scene.white
+  - data: {}
+    service: script.update_lights
+garage_snapshot:
+  alias: Garage Snapshot
+  sequence:
+  - data:
+      name: Garage
+    service: blink.trigger_camera
+  - delay: 00:00:05
+  - data: {}
+    service: blink.blink_update
+all_snapshot:
+  alias: All Snapshot
+  sequence:
+  - data:
+      name: Polar Printer
+    service: blink.trigger_camera
+  - delay: 00:00:15
+  - data:
+      name: Prusa Printer
+    service: blink.trigger_camera
+  - delay: 00:00:15
+  - data:
+      name: Resin Printer
+    service: blink.trigger_camera
+  - delay: 00:00:15
+  - data:
+      name: Garage
+    service: blink.trigger_camera
+  - delay: 00:00:15
+  - data: {}
+    service: blink.blink_update
+resin_snapshot:
+  alias: Resin Snapshot
+  sequence:
+  - data:
+      name: Resin Printer
+    service: blink.trigger_camera
+  - delay: 00:00:05
+  - data: {}
+    service: blink.blink_update
+prusa_snapshot:
+  alias: Prusa Snapshot
+  sequence:
+  - data:
+      name: Prusa Printer
+    service: blink.trigger_camera
+  - delay: 00:00:05
+  - data: {}
+    service: blink.blink_update
+polar_snapshot:
+  alias: Polar Snapshot
+  sequence:
+  - data:
+      name: Polar Printer
+    service: blink.trigger_camera
+  - delay: 00:00:05
+  - data: {}
+    service: blink.blink_update
+'1586194372482':
+  alias: UV Two Minutes
+  sequence:
+  - device_id: b6ca9b0b289e428ca9305b2235955f9c
+    domain: switch
+    entity_id: switch.jasco_products_45603_plugin_appliance_module_switch_2
+    type: turn_on
+  - delay: 00:02:00
+  - device_id: b6ca9b0b289e428ca9305b2235955f9c
+    domain: switch
+    entity_id: switch.jasco_products_45603_plugin_appliance_module_switch_2
+    type: turn_off
