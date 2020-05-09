@@ -1,0 +1,127 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+zwave:
+  usb_path: /dev/ttyACM0
+  network_key: !secret zwave_network_key
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+hacs:
+  token: !secret hacs_token
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+binary_sensor:
+  - platform: ping
+    host: router
+  - platform: ping
+    host: files
+  - platform: ping
+    host: switch
+  - platform: ping
+    host: games-wireless
+  - platform: ping
+    host: maslow
+  - platform: ping
+    host: i3
+
+discovery:
+  ignore:
+    - philips_hue
+
+hue:
+  bridges:
+    - host: 10.44.12.35
+      allow_unreachable: true
+      allow_hue_groups: true
+    - host: 10.44.12.94
+      allow_unreachable: true
+      allow_hue_groups: true
+    - host: 10.44.12.97
+      allow_unreachable: true
+      allow_hue_groups: true
+
+august:
+  login_method: email
+  username: !secret august_email
+  password: !secret august_password
+
+panel_custom:
+  - name: zwavegraph2
+    sidebar_title: Z-Wave Graph
+    sidebar_icon: mdi:access-point-network
+    url_path: zwave
+
+
+blink:
+    username: !secret blink_email
+    password: !secret blink_password
+
+device_tracker:
+ - platform: ping
+   hosts:
+     router: router.redwagon.lan
+     files: files.redwagon.lan
+     polar: polar.redwagon.lan
+     aaron_desktop: games.redwagon.lan
+     blink: blink.redwagon.lan
+     basement: basement.redwagon.lan
+     chromebook: chromebook.redwagon.lan
+     susan_desktop: susan-desktop.redwagon.lan
+     aaron_work_laptop: aaron-work-laptop.redwagon.lan
+     hue: hue.redwagon.lan
+     printer: printer.redwagon.lan
+
+input_boolean:
+  default_light:
+    initial: on
+  printer_estop:
+    name: Printer E-Stop
+    initial: off
+    icon: mdi:fire
+
+input_number:
+  default_light:
+    min: 0
+    max: 255
+    initial: 60
+  default_temp:
+    initial: 325
+    min: 154
+    max: 500
+
+light:
+  - platform: template
+    lights:
+      default_light:
+        friendly_name: "Default"
+        turn_on:
+          service: input_boolean.turn_on
+          entity_id: input_boolean.default_light
+        turn_off:
+          service: input_boolean.turn_off
+          entity_id: input_boolean.default_light
+        set_level:
+          service: input_number.set_value
+          data_template:
+            value: "{{ brightness }}"
+            entity_id: input_number.default_light
+        set_temperature:
+          service: input_number.set_value
+          data_template:
+            value: "{{ color_temp }}"
+            entity_id: input_number.default_temp
