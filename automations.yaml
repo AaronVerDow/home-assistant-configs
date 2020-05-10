@@ -594,24 +594,19 @@
     entity_id: switch.maslow_monitor_switch
     type: turn_on
 - id: '1583195004740'
-  alias: Garage Motion Off
+  alias: Garage Locked
   description: ''
   trigger:
-  - device_id: d2e7611b008f4f21bf2e892c50fc7480
-    domain: binary_sensor
-    entity_id: binary_sensor.garage_motion
-    for:
-      hours: 0
-      minutes: 1
-      seconds: 0
+  - device_id: b3e6c00d970f4476b121560bcfef6765
+    domain: lock
+    entity_id: lock.garage_zwave
     platform: device
-    type: turned_off
-  condition:
-  - condition: device
-    device_id: d2e7611b008f4f21bf2e892c50fc7480
-    domain: binary_sensor
-    entity_id: binary_sensor.garage_motion
-    type: is_off
+    type: locked
+  - entity_id: lock.garage
+    from: unlocked
+    platform: state
+    to: locked
+  condition: []
   action:
   - data: {}
     entity_id: light.garage
@@ -622,6 +617,10 @@
     type: turn_off
   - data: {}
     service: script.garage_snapshot
+  - device_id: 7856d7dfc9674ae4b380eb719ad62b4e
+    domain: switch
+    entity_id: switch.maslow_monitor_switch
+    type: turn_off
 - id: '1583210499283'
   alias: Bedroom Motion On
   description: ''
@@ -1126,17 +1125,9 @@
     domain: switch
     entity_id: switch.garage_heater
     type: turn_off
-  - device_id: 86efe8da01ba42f6aff0b25691f5d36a
-    domain: switch
-    entity_id: switch.garage_ext
-    type: turn_off
   - device_id: ecb2988a5ae0464184e7cdc8c0701432
     domain: switch
     entity_id: switch.maslow
-    type: turn_off
-  - device_id: 91e18dfd9be14ad5b3bf596bb6e1d178
-    domain: switch
-    entity_id: switch.maslow_router
     type: turn_off
 - id: '1587157923681'
   alias: Override Reset
@@ -1390,3 +1381,101 @@
   - data_template:
       entity_id: '{{ trigger.entity_id }}'
     service: light.turn_off
+- id: '1589078994654'
+  alias: Garage Unlocked
+  description: ''
+  trigger:
+  - device_id: b3e6c00d970f4476b121560bcfef6765
+    domain: lock
+    entity_id: lock.garage_zwave
+    platform: device
+    type: unlocked
+  - entity_id: lock.garage
+    from: locked
+    platform: state
+    to: unlocked
+  condition: []
+  action:
+  - data:
+      brightness: 255
+      color_name: green
+    entity_id: light.garage
+    service: light.turn_on
+- id: '1589079380953'
+  alias: Garage Motion Off
+  description: ''
+  trigger:
+  - device_id: d2e7611b008f4f21bf2e892c50fc7480
+    domain: binary_sensor
+    entity_id: binary_sensor.garage_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: d2e7611b008f4f21bf2e892c50fc7480
+    domain: binary_sensor
+    entity_id: binary_sensor.garage_motion
+    type: is_off
+  action:
+  - data: {}
+    entity_id: lock.garage
+    service: lock.lock
+  - data: {}
+    entity_id: lock.garage_zwave
+    service: lock.lock
+- id: '1589079852673'
+  alias: Garage Door Open Warning
+  description: ''
+  trigger:
+  - device_id: d2e7611b008f4f21bf2e892c50fc7480
+    domain: binary_sensor
+    entity_id: binary_sensor.garage_motion
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 0
+    platform: device
+    type: turned_off
+  - entity_id: lock.garage
+    for: 00:03:00
+    from: unlocked
+    platform: state
+    to: locked
+  - entity_id: lock.garage_zwave
+    for: 00:03:00
+    from: unlocked
+    platform: state
+    to: locked
+  condition:
+  - condition: device
+    device_id: d874e3fd9b364e488e93bf47e6c55b53
+    domain: binary_sensor
+    entity_id: binary_sensor.ecolink_garage_door_tilt_sensor_sensor
+    type: is_on
+  action:
+  - data:
+      brightness: 255
+      color_name: red
+    entity_id: light.garage
+    service: light.turn_on
+  - device_id: 99bd59c331e243e7a32af93986c1f818
+    domain: switch
+    entity_id: switch.jasco_products_45603_plugin_appliance_module_switch
+    type: turn_off
+- id: '1589081124037'
+  alias: Garage Small Door Opened
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.garage_open
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: automation.garage_motion_on
+    service: automation.trigger
