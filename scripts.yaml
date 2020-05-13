@@ -331,3 +331,22 @@ polar_snapshot:
     domain: switch
     entity_id: switch.jasco_products_45603_plugin_appliance_module_switch_2
     type: turn_off
+'1589341756941':
+  alias: Go to bed
+  sequence:
+  - data: {}
+    entity_id: input_boolean.sleeping
+    service: input_boolean.turn_on
+  - data:
+      brightness: 1
+      hs_color:
+        - 0
+        - 70
+    entity_id: light.bedroom_susan
+    service: light.turn_on
+  - data: {}
+    entity_id: light.bedroom
+    service: light.turn_off
+  - data: {}
+    entity_id: light.hallway
+    service: light.turn_off

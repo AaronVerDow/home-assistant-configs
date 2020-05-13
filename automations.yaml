@@ -636,6 +636,9 @@
     domain: binary_sensor
     entity_id: binary_sensor.bedroom_motion
     type: is_on
+  - condition: state
+    entity_id: input_boolean.sleeping
+    state: 'off'
   action:
   - data_template:
       brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
@@ -1609,3 +1612,84 @@
   - data: {}
     entity_id: lock.back_lock_zwave_locked
     service: lock.lock
+- id: '1589341439029'
+  alias: Underbed Motion On Daytime
+  description: ''
+  trigger:
+  - device_id: 608822c928ae489797b3201b0bee5251
+    domain: binary_sensor
+    entity_id: binary_sensor.bedroom_motion
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: 608822c928ae489797b3201b0bee5251
+    domain: binary_sensor
+    entity_id: binary_sensor.bedroom_motion
+    type: is_on
+  - condition: state
+    entity_id: input_boolean.sleeping
+    state: 'off'
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.bedroom_susan
+    service: light.turn_on
+- id: '1589341582497'
+  alias: Underbed Motion Off
+  description: ''
+  trigger:
+  - device_id: 608822c928ae489797b3201b0bee5251
+    domain: binary_sensor
+    entity_id: binary_sensor.bedroom_motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 3
+    platform: device
+    type: turned_off
+  condition:
+  - condition: state
+    entity_id: input_boolean.sleeping
+    state: 'off'
+  - condition: device
+    device_id: 608822c928ae489797b3201b0bee5251
+    domain: binary_sensor
+    entity_id: binary_sensor.bedroom_motion
+    type: is_off
+  action:
+  - data: {}
+    entity_id: light.bedroom_susan
+    service: light.turn_off
+- id: '1589342052228'
+  alias: Wake Up
+  description: ''
+  trigger:
+  - at: '9:00'
+    platform: time
+  - entity_id: input_boolean.sleeping
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data: {}
+    entity_id: input_boolean.sleeping
+    service: input_boolean.turn_off
+  - data:
+      skip_condition: false
+    entity_id: automation.underbed_motion_on_daytime
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.hallway_motion_on
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.bedroom_override_reset
+    service: automation.trigger
