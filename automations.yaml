@@ -1511,9 +1511,7 @@
   condition: []
   action:
   - data_template:
-      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
-        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
-        \ 153\n{% endif %}\n"
+      brightness: 255
       color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
         \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
         \ 230\n{% endif %}\n"
@@ -1551,9 +1549,7 @@
   condition: []
   action:
   - data_template:
-      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
-        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
-        \ 153\n{% endif %}\n"
+      brightness: 255
       color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
         \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
         \ 230\n{% endif %}\n"
