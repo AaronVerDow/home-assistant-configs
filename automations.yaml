@@ -1479,3 +1479,171 @@
   - data: {}
     entity_id: automation.garage_motion_on
     service: automation.trigger
+- id: '1589321944108'
+  alias: Entrance Locked
+  description: ''
+  trigger:
+  - entity_id: lock.front_lock
+    from: unlocked
+    platform: state
+    to: locked
+  - entity_id: lock.front_door_zwave
+    from: unlocked
+    platform: state
+    to: locked
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.entrance
+    service: light.turn_off
+- id: '1589321945631'
+  alias: Entrance Locked
+  description: ''
+  trigger:
+  - entity_id: lock.front_lock
+    from: unlocked
+    platform: state
+    to: locked
+  - entity_id: lock.front_door_zwave
+    from: unlocked
+    platform: state
+    to: locked
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.entrance
+    service: light.turn_off
+- id: '1589322031788'
+  alias: Entrance Unlocked
+  description: ''
+  trigger:
+  - entity_id: lock.front_lock
+    from: locked
+    platform: state
+    to: unlocked
+  - entity_id: lock.front_door_zwave
+    from: locked
+    platform: state
+    to: unlocked
+  condition: []
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.entrance
+    service: light.turn_on
+- id: '1589322033623'
+  alias: Entrance Unlocked
+  description: ''
+  trigger:
+  - entity_id: lock.front_lock
+    from: locked
+    platform: state
+    to: unlocked
+  - entity_id: lock.front_door_zwave
+    from: locked
+    platform: state
+    to: unlocked
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.entrance
+    service: light.turn_on
+- id: '1589328357542'
+  alias: Back Locked
+  description: ''
+  trigger:
+  - entity_id: lock.back_lock
+    from: unlocked
+    platform: state
+    to: locked
+  - entity_id: lock.back_lock_zwave_locked
+    from: unlocked
+    platform: state
+    to: locked
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.back_porch
+    service: light.turn_off
+- id: '1589328478090'
+  alias: Back Unlocked
+  description: ''
+  trigger:
+  - entity_id: lock.back_lock
+    from: locked
+    platform: state
+    to: unlocked
+  - entity_id: lock.back_lock_zwave_locked
+    from: locked
+    platform: state
+    to: unlocked
+  condition: []
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.back_porch
+    service: light.turn_on
+- id: '1589328862217'
+  alias: Lock Front
+  description: ''
+  trigger:
+  - entity_id: lock.front_lock
+    for: 00:05:00
+    from: locked
+    platform: state
+    to: unlocked
+  - entity_id: binary_sensor.front_lock_open
+    for: 00:05:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: lock.front_door_zwave
+    for: 00:05:00
+    from: locked
+    platform: state
+    to: unlocked
+  condition: []
+  action:
+  - data: {}
+    entity_id: lock.front_lock
+    service: lock.lock
+  - data: {}
+    entity_id: lock.front_door_zwave
+    service: lock.lock
+- id: '1589329023817'
+  alias: Lock Back
+  description: ''
+  trigger:
+  - entity_id: lock.back_lock
+    for: 00:05:00
+    from: locked
+    platform: state
+    to: unlocked
+  - entity_id: lock.back_lock_zwave_locked
+    for: 00:05:00
+    from: locked
+    platform: state
+    to: unlocked
+  - entity_id: binary_sensor.back_lock_open
+    for: 00:05:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data: {}
+    entity_id: lock.back_lock
+    service: lock.lock
+  - data: {}
+    entity_id: lock.back_lock_zwave_locked
+    service: lock.lock
