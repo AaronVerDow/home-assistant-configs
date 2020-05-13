@@ -93,6 +93,8 @@ input_boolean:
     name: Printer E-Stop
     initial: off
     icon: mdi:fire
+  sleeping:
+    initial: off
 
 input_number:
   default_light:
@@ -125,3 +127,4 @@ light:
           data_template:
             value: "{{ color_temp }}"
             entity_id: input_number.default_temp
+
