@@ -709,6 +709,9 @@
       domain: binary_sensor
       entity_id: binary_sensor.bathroom_motion
       type: is_on
+    - condition: state
+      entity_id: input_boolean.sleeping
+      state: 'off'
   action:
   - data_template:
       brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
@@ -766,6 +769,9 @@
     domain: binary_sensor
     entity_id: binary_sensor.closet_motion
     type: is_off
+  - condition: state
+    entity_id: input_boolean.sleeping
+    state: 'off'
   action:
   - data: {}
     entity_id: light.hallway
@@ -1691,5 +1697,9 @@
     service: automation.trigger
   - data:
       skip_condition: false
-    entity_id: automation.bedroom_override_reset
+    entity_id: automation.bedroom_motion_on
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.hallway_motion_off
     service: automation.trigger
