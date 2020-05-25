@@ -692,6 +692,9 @@
     platform: device
     type: turned_on
   condition:
+  - condition: state
+    entity_id: input_boolean.sleeping
+    state: 'off'
   - condition: or
     conditions:
     - condition: device
@@ -709,9 +712,6 @@
       domain: binary_sensor
       entity_id: binary_sensor.bathroom_motion
       type: is_on
-    - condition: state
-      entity_id: input_boolean.sleeping
-      state: 'off'
   action:
   - data_template:
       brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
@@ -1583,7 +1583,10 @@
     from: locked
     platform: state
     to: unlocked
-  condition: []
+  condition:
+  - condition: state
+    entity_id: binary_sensor.front_lock_open
+    state: 'off'
   action:
   - data: {}
     entity_id: lock.front_lock
@@ -1610,7 +1613,10 @@
     from: 'on'
     platform: state
     to: 'off'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: binary_sensor.back_lock_open
+    state: 'off'
   action:
   - data: {}
     entity_id: lock.back_lock
@@ -1703,3 +1709,29 @@
       skip_condition: false
     entity_id: automation.hallway_motion_off
     service: automation.trigger
+- id: '1589409466874'
+  alias: Go to bed
+  description: ''
+  trigger:
+  - entity_id: input_boolean.sleeping
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: input_boolean.sleeping
+    service: input_boolean.turn_on
+  - data:
+      brightness: 3
+      color_temp: 444
+    entity_id: light.hallway
+    service: light.turn_on
+  - data:
+      brightness: 3
+      color_temp: 444
+    entity_id: light.bedroom_susan
+    service: light.turn_on
+  - data: {}
+    entity_id: light.bedroom
+    service: light.turn_off
