@@ -837,15 +837,6 @@
       color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
         \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
         \ 230\n{% endif %}\n"
-    entity_id: light.aaron_desk
-    service: light.turn_on
-  - data_template:
-      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
-        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
-        \ 153\n{% endif %}\n"
-      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
-        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
-        \ 230\n{% endif %}\n"
     entity_id: light.susan_below_desk
     service: light.turn_on
   - data_template:
@@ -883,9 +874,6 @@
     entity_id: binary_sensor.living_room_motion
     type: is_off
   action:
-  - data: {}
-    entity_id: light.aaron_desk
-    service: light.turn_off
   - data: {}
     entity_id: light.susan_desk
     service: light.turn_off
@@ -1735,3 +1723,55 @@
   - data: {}
     entity_id: light.bedroom
     service: light.turn_off
+- id: '1591558169323'
+  alias: Desk Motion On
+  description: ''
+  trigger:
+  - device_id: c22ffb63c9dc47d99832ffaf29c54083
+    domain: binary_sensor
+    entity_id: binary_sensor.desk_motion_sensor
+    platform: device
+    type: turned_on
+  condition:
+  - condition: device
+    device_id: c22ffb63c9dc47d99832ffaf29c54083
+    domain: binary_sensor
+    entity_id: binary_sensor.desk_motion_sensor
+    type: is_on
+  action:
+  - data_template:
+      brightness: "{% if state_attr('light.default_light', 'brightness') %}\n  {{\
+        \ state_attr('light.default_light', 'brightness') | int }}\n{% else %}\n \
+        \ 153\n{% endif %}\n"
+      color_temp: "{% if state_attr('light.default_light', 'color_temp') %}\n  {{\
+        \ state_attr('light.default_light', 'color_temp') | int }}\n{% else %}\n \
+        \ 230\n{% endif %}\n"
+    entity_id: light.aaron_desk
+    service: light.turn_on
+- id: '1591558372000'
+  alias: Desk Motion Off
+  description: ''
+  trigger:
+  - device_id: c22ffb63c9dc47d99832ffaf29c54083
+    domain: binary_sensor
+    entity_id: binary_sensor.desk_motion_sensor
+    for:
+      hours: 0
+      minutes: 7
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: c22ffb63c9dc47d99832ffaf29c54083
+    domain: binary_sensor
+    entity_id: binary_sensor.desk_motion_sensor
+    type: is_off
+  action:
+  - data: {}
+    entity_id: light.aaron_desk
+    service: light.turn_off
+  - device_id: d463283608404a6588a727fe6f42d1e0
+    domain: switch
+    entity_id: switch.desk_fan
+    type: turn_off
