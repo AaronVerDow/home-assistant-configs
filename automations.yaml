@@ -377,6 +377,10 @@
         \ 230\n{% endif %}\n"
     entity_id: light.paper
     service: light.turn_on
+  - device_id: 4cf5f7c1fd8d4d0cb353e539808494b8
+    domain: switch
+    entity_id: switch.paper_air_filter_switch
+    type: turn_off
 - id: '1583191164728'
   alias: Paper Motion Off
   description: ''
@@ -425,6 +429,10 @@
         \ 230\n{% endif %}\n"
     entity_id: light.dining_table
     service: light.turn_on
+  - device_id: 4cf5f7c1fd8d4d0cb353e539808494b8
+    domain: switch
+    entity_id: switch.paper_air_filter_switch
+    type: turn_off
 - id: '1583191545330'
   alias: Dining Table Motion Off
   description: ''
@@ -649,6 +657,10 @@
         \ 230\n{% endif %}\n"
     entity_id: light.bedroom
     service: light.turn_on
+  - device_id: 1438e5dd98f24c0e98ddd2fc39fe998f
+    domain: switch
+    entity_id: switch.leviton_unknown_type_1805_id_0334_switch_3
+    type: turn_off
 - id: '1583211387702'
   alias: Bedroom Motion Off
   description: ''
@@ -668,10 +680,17 @@
     domain: binary_sensor
     entity_id: binary_sensor.bedroom_motion
     type: is_off
+  - condition: state
+    entity_id: input_boolean.sleeping
+    state: 'off'
   action:
   - data: {}
     entity_id: light.bedroom
     service: light.turn_off
+  - device_id: 1438e5dd98f24c0e98ddd2fc39fe998f
+    domain: switch
+    entity_id: switch.leviton_unknown_type_1805_id_0334_switch_3
+    type: turn_on
 - id: '1583211971074'
   alias: Hallway Motion On
   description: ''
@@ -854,6 +873,10 @@
   - data: {}
     entity_id: light.susan_monitor_right
     service: light.turn_off
+  - device_id: 642f70a255db40eea6cefa043ce6fd92
+    domain: switch
+    entity_id: switch.living_room_air_filter_switch_3
+    type: turn_off
 - id: '1583964234118'
   alias: Living Room Motion Off
   description: ''
@@ -1676,6 +1699,8 @@
     from: 'on'
     platform: state
     to: 'off'
+  - at: '12:00'
+    platform: time
   condition: []
   action:
   - data: {}
@@ -1696,6 +1721,10 @@
   - data:
       skip_condition: false
     entity_id: automation.hallway_motion_off
+    service: automation.trigger
+  - data:
+      skip_condition: false
+    entity_id: automation.bedroom_motion_off
     service: automation.trigger
 - id: '1589409466874'
   alias: Go to bed
@@ -1723,6 +1752,10 @@
   - data: {}
     entity_id: light.bedroom
     service: light.turn_off
+  - device_id: 1438e5dd98f24c0e98ddd2fc39fe998f
+    domain: switch
+    entity_id: switch.leviton_unknown_type_1805_id_0334_switch_3
+    type: turn_off
 - id: '1591558169323'
   alias: Desk Motion On
   description: ''
@@ -1748,6 +1781,10 @@
         \ 230\n{% endif %}\n"
     entity_id: light.aaron_desk
     service: light.turn_on
+  - device_id: 642f70a255db40eea6cefa043ce6fd92
+    domain: switch
+    entity_id: switch.living_room_air_filter_switch_3
+    type: turn_off
 - id: '1591558372000'
   alias: Desk Motion Off
   description: ''
@@ -1775,3 +1812,95 @@
     domain: switch
     entity_id: switch.desk_fan
     type: turn_off
+- id: '1593820736424'
+  alias: Living Room Air Filter On
+  description: ''
+  trigger:
+  - device_id: 14717f0a413a4dea8ca6acbe9d915d11
+    domain: binary_sensor
+    entity_id: binary_sensor.living_room_motion
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+    platform: device
+    type: turned_off
+  - device_id: c22ffb63c9dc47d99832ffaf29c54083
+    domain: binary_sensor
+    entity_id: binary_sensor.desk_motion_sensor
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: 14717f0a413a4dea8ca6acbe9d915d11
+    domain: binary_sensor
+    entity_id: binary_sensor.living_room_motion
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+    type: is_off
+  - condition: device
+    device_id: c22ffb63c9dc47d99832ffaf29c54083
+    domain: binary_sensor
+    entity_id: binary_sensor.desk_motion_sensor
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+    type: is_off
+  action:
+  - device_id: 642f70a255db40eea6cefa043ce6fd92
+    domain: switch
+    entity_id: switch.living_room_air_filter_switch_3
+    type: turn_on
+- id: '1593821101931'
+  alias: Paper Air Filter On
+  description: ''
+  trigger:
+  - device_id: 01ede7e2cf8f4983bcef4b6c7b4f03d4
+    domain: binary_sensor
+    entity_id: binary_sensor.paper_motion
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    platform: device
+    type: turned_off
+  - device_id: c778f47158af42b2909e278f4778b427
+    domain: binary_sensor
+    entity_id: binary_sensor.dining_table_motion
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition:
+  - condition: device
+    device_id: 01ede7e2cf8f4983bcef4b6c7b4f03d4
+    domain: binary_sensor
+    entity_id: binary_sensor.paper_motion
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    type: is_off
+  - condition: device
+    device_id: c778f47158af42b2909e278f4778b427
+    domain: binary_sensor
+    entity_id: binary_sensor.dining_table_motion
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    type: is_off
+  action:
+  - device_id: 4cf5f7c1fd8d4d0cb353e539808494b8
+    domain: switch
+    entity_id: switch.paper_air_filter_switch
+    type: turn_on
